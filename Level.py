@@ -50,6 +50,18 @@ GREEN = (144, 201, 120)
 WHITE = (255, 255, 255)
 RED = (200, 25, 25)
 
+
+#create empty tile list
+world_data = []
+for row in range(ROWS):
+    r = [-1] * MAX_COLS
+    world_data.append(r)
+
+'create ground'
+for tile in range(0, MAX_COLS):
+    world_data[ROWS-1][tile] = 0
+
+
 #create function for drawing background
 def draw_bg():
     screen.fill(GREEN)
@@ -70,6 +82,15 @@ def draw_grid():
     #horizontal lines
     for c in range(ROWS + 1):
         pygame.draw.line(screen, WHITE, (0, c * TILE_SIZE), (SCREEN_WIDTH, c * TILE_SIZE))
+
+
+#function for drawing world tiles
+def draw_world():
+    for y, row in enumerate(world_data):
+        for x, tile in enumerate(row):
+            if tile >= 0:
+                screen.blit(img_list[tile], (x * TILE_SIZE - scroll, y * TILE_SIZE))
+
 
 
 #create Buttons
@@ -96,7 +117,7 @@ while run:
     clock.tick(FPS)
     draw_bg()
     draw_grid()
-
+    draw_world()
     # draw tile panel and tiles
 
 
@@ -120,6 +141,22 @@ while run:
         scroll -= 5 * scroll_speed
     if scroll_right == True:
         scroll += 5 * scroll_speed
+
+
+#add new tiles to the screen
+    #get mouse position
+    pos = pygame.mouse.get_pos()
+    x = (pos[0] + scroll) // TILE_SIZE
+    y = (pos[1] // TILE_SIZE)
+
+
+    #check that the coordinates are withing tile area
+    if pos[0] < SCREEN_WIDTH and pos[1] < SCREEN_HEIGHT:
+        #update tile value
+        if pygame.mouse.get_pressed()[0] == 1:
+            if world_data[y][x] != current_tile:
+                world_data[y][x] = current_tile
+
 
 
 

@@ -436,6 +436,7 @@ enemy = Soldier('enemy', 200, 249, 1.65, 2, 20, 0)
 enemy2 = Soldier('enemy', 400, 249, 1.65, 2, 20, 0)
 enemy_group.add(enemy)
 enemy_group.add(enemy2)
+#1.65
 
 
 
