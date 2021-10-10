@@ -45,6 +45,8 @@ item_boxes = {
     'Grenade'   : grenade_box_img
 }
 
+#convert_alpha()
+
 
 #define Colors
 BG = (144, 201, 120)
